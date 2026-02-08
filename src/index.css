@@ -23,6 +23,10 @@
     transform: rotateX(12deg);
   }
 
+  .safe-pb-4 {
+    padding-bottom: env(safe-area-inset-bottom, 1rem);
+  }
+
   .animate-delay-200 {
     animation-delay: 200ms;
   }
