@@ -37,6 +37,7 @@ const SparkleName = ({ onComplete }) => {
             tCtx.fillText(text, canvas.width / 2, canvas.height / 2);
 
             // Skip pixels to reduce density - Lower gap = Higher density/Sharpness
+            const imageData = tCtx.getImageData(0, 0, canvas.width, canvas.height).data;
             // Skip pixels to reduce density - Increased gap for performance stability
             const gap = 3;
 
