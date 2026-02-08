@@ -20,7 +20,7 @@ const Landing = ({ onStart }) => {
                 {showButton && (
                     <button
                         onClick={onStart}
-                        className="absolute bottom-10 right-10 z-50 px-6 py-3 bg-white/10 backdrop-blur border border-white/20 rounded-full text-white font-serif hover:bg-white/20 transition-all animate-bounce shadow-[0_0_15px_rgba(255,255,255,0.3)] cursor-pointer animate-fadeIn"
+                        className="fixed bottom-8 right-6 md:bottom-10 md:right-10 z-50 px-5 py-2 md:px-6 md:py-3 bg-white/10 backdrop-blur border border-white/20 rounded-full text-white font-serif hover:bg-white/20 transition-all animate-bounce shadow-[0_0_15px_rgba(255,255,255,0.3)] cursor-pointer animate-fadeIn text-sm md:text-xl"
                     >
                         See the Magic ✨
                     </button>
