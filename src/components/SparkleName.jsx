@@ -20,36 +20,44 @@ const SparkleName = ({ onComplete }) => {
 
         // 1. Get Text Coordinates
         const getTextPoints = (text) => {
-            const tempCanvas = document.createElement('canvas');
-            const tCtx = tempCanvas.getContext('2d');
-            tempCanvas.width = canvas.width;
-            tempCanvas.height = canvas.height;
+            if (canvas.width === 0 || canvas.height === 0) return []; // Prevent IndexSizeError
 
-            tCtx.font = 'bold 80px serif';
-            // Adjust font size based on screen width
-            if (window.innerWidth < 600) {
-                tCtx.font = 'bold 30px serif';
-            }
+            try {
+                const tempCanvas = document.createElement('canvas');
+                const tCtx = tempCanvas.getContext('2d');
+                tempCanvas.width = canvas.width;
+                tempCanvas.height = canvas.height;
 
-            tCtx.fillStyle = '#fff';
-            tCtx.textAlign = 'center';
-            tCtx.textBaseline = 'middle';
-            tCtx.fillText(text, canvas.width / 2, canvas.height / 2);
+                tCtx.font = 'bold 80px serif';
+                // Adjust font size based on screen width
+                if (window.innerWidth < 600) {
+                    tCtx.font = 'bold 30px serif';
+                }
 
-            // Skip pixels to reduce density - Lower gap = Higher density/Sharpness
-            const imageData = tCtx.getImageData(0, 0, canvas.width, canvas.height).data;
-            // Skip pixels to reduce density - Increased gap for performance stability
-            const gap = 4;
+                tCtx.fillStyle = '#fff';
+                tCtx.textAlign = 'center';
+                tCtx.textBaseline = 'middle';
+                tCtx.fillText(text, canvas.width / 2, canvas.height / 2);
 
-            for (let y = 0; y < canvas.height; y += gap) {
-                for (let x = 0; x < canvas.width; x += gap) {
-                    const index = (y * canvas.width + x) * 4;
-                    if (imageData[index + 3] > 128) {
-                        points.push({ x, y });
+                // Skip pixels to reduce density - Lower gap = Higher density/Sharpness
+                const imageData = tCtx.getImageData(0, 0, canvas.width, canvas.height).data;
+                // Skip pixels to reduce density - Increased gap for performance stability
+                const gap = 4;
+
+                const points = [];
+                for (let y = 0; y < canvas.height; y += gap) {
+                    for (let x = 0; x < canvas.width; x += gap) {
+                        const index = (y * canvas.width + x) * 4;
+                        if (imageData[index + 3] > 128) {
+                            points.push({ x, y });
+                        }
                     }
                 }
+                return points;
+            } catch (e) {
+                console.error("Sparkle generation failed:", e);
+                return []; // Fail gracefully
             }
-            return points;
         };
 
         textPoints = getTextPoints("Love u Talluu");
