@@ -131,7 +131,13 @@ const SparkleName = ({ onComplete }) => {
 
         animate();
 
+        // Safety timeout to guarantee transition even if animation fails
+        const safetyTimer = setTimeout(() => {
+            if (onComplete) onComplete();
+        }, 6000);
+
         return () => {
+            clearTimeout(safetyTimer);
             window.removeEventListener('resize', resizeCanvas);
             cancelAnimationFrame(animationFrameId);
         };
