@@ -36,10 +36,8 @@ const SparkleName = ({ onComplete }) => {
             tCtx.textBaseline = 'middle';
             tCtx.fillText(text, canvas.width / 2, canvas.height / 2);
 
-            const imageData = tCtx.getImageData(0, 0, canvas.width, canvas.height).data;
-            const points = [];
             // Skip pixels to reduce density - Lower gap = Higher density/Sharpness
-            const gap = 2;
+            const gap = 1; // Maximum density
 
             for (let y = 0; y < canvas.height; y += gap) {
                 for (let x = 0; x < canvas.width; x += gap) {
@@ -67,8 +65,8 @@ const SparkleName = ({ onComplete }) => {
                 this.accX = 0;
                 this.accY = 0;
                 this.friction = 0.95;
-                this.color = `hsl(${Math.random() * 60 + 30}, 100%, 70%)`; // Gold/Yellow ish
-                this.size = Math.random() * 1.5 + 0.5; // Smaller, sharper particles
+                this.color = `hsl(${Math.random() * 60 + 30}, 100%, 75%)`; // Brighter Gold/Yellow
+                this.size = Math.random() * 2 + 1.5; // Larger and bolder particles for clarity
                 this.state = 'launch'; // launch, converge, hold
             }
 
