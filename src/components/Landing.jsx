@@ -6,7 +6,7 @@ const Landing = ({ onStart }) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setShowButton(true);
-        }, 5000); // 5 seconds delay
+        }, 10000); // 10 seconds delay
         return () => clearTimeout(timer);
     }, []);
 
